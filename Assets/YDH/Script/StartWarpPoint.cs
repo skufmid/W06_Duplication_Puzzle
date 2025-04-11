@@ -12,6 +12,9 @@ public class StartWarpPoint : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             collision.transform.position = EndWarpPoint.transform.position;
+
+            EndWarpPoint.SetActive(false);
+            this.gameObject.SetActive(false);
         }
     }
 }
