@@ -1,27 +1,51 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public int PlayerId; 
-
-    Vector3 move;
-    public float Speed;
+    public int PlayerId;
     public int Direction;
-    void FixedUpdate()
+
+    public float moveDistance = 1f;
+    public float moveSpeed = 5f;
+
+    private bool isMoving = false;
+    private Vector3 targetPos;
+
+    private void Start()
     {
-        move.x = Input.GetAxis("Horizontal");
-        move.y = Input.GetAxis("Vertical");
-
-        transform.position += move * Speed * Time.deltaTime * Direction;
-
+        targetPos = transform.position;
     }
 
-    private void Update()
+    void OnEnable()
     {
-        //if (Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    GameManager.Instance.SpawnPlayer();
-        //}
-        
+        InputController.OnMoveInput += HandleMoveInput;
+    }
+
+    void OnDisable()
+    {
+        InputController.OnMoveInput -= HandleMoveInput;
+    }
+
+    void HandleMoveInput(Vector2 dir)
+    {
+        if (!isMoving)
+            StartCoroutine(Move(dir));
+    }
+
+    IEnumerator Move(Vector2 dir)
+    {
+        isMoving = true;
+        targetPos = transform.position + (Vector3)(dir * moveDistance * Direction);
+
+        while ((targetPos - transform.position).sqrMagnitude > 0.01f)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
+            yield return null;
+        }
+
+        transform.position = targetPos;
+        isMoving = false;
     }
 }
