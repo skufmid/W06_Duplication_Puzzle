@@ -114,7 +114,13 @@ public class CentralMovementManager : MonoBehaviour
             return !isBlocked;
         }
 
-        // 각 캐릭터별로 예약 처리:
+        foreach (var pc in sortedPlayers)
+        {
+            reservedSpots.Add(pc.transform.position);
+        }
+
+
+            // 각 캐릭터별로 예약 처리:
         foreach (var pc in sortedPlayers)
         {
             // effective 이동: 각 캐릭터마다 설정된 moveDistance와 Direction을 곱해서 계산.
@@ -143,6 +149,7 @@ public class CentralMovementManager : MonoBehaviour
                         {
                             // 블록을 밀 수 있다면, 블록의 목표를 갱신하고 예약 처리.
                             pushedBlock.PlannedTarget = blockNewTarget;
+                            reservedSpots.Remove(pc.transform.position);
                             reservedSpots.Add(blockNewTarget);
                             pushed = true;
                             // 이후 원래 캐릭터는 pushedBlock이 있던 칸(즉, proposedTarget)으로 이동 가능하게 됨.
@@ -161,6 +168,7 @@ public class CentralMovementManager : MonoBehaviour
             {
                 // 이동 가능: 해당 목적지 예약 및 저장.
                 pc.PlannedTarget = proposedTarget;
+                reservedSpots.Remove(pc.transform.position);
                 reservedSpots.Add(proposedTarget);
             }
         }
