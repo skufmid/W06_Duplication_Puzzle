@@ -68,15 +68,13 @@ public class CentralMovementManager : MonoBehaviour
             return;
         }
 
-        // 2) 전체 캐릭터 리스트에서 이동 가능한(즉, 아직 움직임 중이 아닌) 캐릭터만 선택.
+        // 2) 전체 캐릭터 리스트에서 아직 이동 중이지 않은 캐릭터만 선택.
         List<PlayerController> sortedPlayers = new List<PlayerController>(players);
         sortedPlayers = sortedPlayers.FindAll(p => !p.IsMoving);
 
-        // 3) 우선순위 정렬:
-        // 먼저 PlayerId의 오름차순(낮은 값부터)으로 정렬하고,
-        // 같은 그룹(PlayerId 동일) 내에서는
-        // - PlayerId가 0인 경우: baseComparer 기준 그대로 적용.
-        // - PlayerId가 1인 경우: baseComparer 결과를 반전시킴.
+        // 3) 우선순위 정렬: 우선 PlayerId 오름차순(낮은 값부터) 후, 같은 그룹 내에서는
+        //    - PlayerId가 0: 기본 비교기 순서 그대로 적용
+        //    - PlayerId가 1: 기본 비교기 결과 반전 적용
         sortedPlayers.Sort((a, b) =>
         {
             int idCompare = a.PlayerId.CompareTo(b.PlayerId);
@@ -84,47 +82,95 @@ public class CentralMovementManager : MonoBehaviour
                 return idCompare;
 
             int cmp = baseComparer(a, b);
-            // 동일 그룹에서 PlayerId가 1이면 비교 결과를 뒤집음.
             if (a.PlayerId == 1)
                 cmp = -cmp;
             return cmp;
         });
 
-        // 4) 각 캐릭터마다 목적지 예약(reservation) 및 이동 여부 결정.
+        // 4) 각 캐릭터마다 목적지 예약 및 이동 여부 결정.
         // 예약된 칸은 HashSet을 사용해 중복 체크.
         HashSet<Vector3> reservedSpots = new HashSet<Vector3>();
-        // Obstacle 및 Player 체크에 사용할 레이어.
+        // 장애물 체크 시 사용할 레이어 (Hierarchy에서 "Obstacle"과 "Player"라는 레이어를 사용)
         int playerLayer = LayerMask.GetMask("Player");
         int obstacleLayer = LayerMask.GetMask("Obstacle");
 
+        // 내부 함수: 블록(플레이어ID 2) 밀기 시도. 성공하면 블록의 목표 위치를 반환.
+        bool TryPushBlock(PlayerController block, Vector2 moveDir, out Vector3 newTarget)
+        {
+            // 블록의 제안 이동 목표 계산 (블록은 일반적으로 Direction = 1로 사용)
+            newTarget = block.transform.position + (Vector3)(moveDir * block.moveDistance * block.Direction);
+            // 장애물 및 예약된 칸 체크 (블록은 밀리는 대상이므로, 자기 자신 외의 장애물만 고려)
+            Collider2D hit = Physics2D.OverlapCircle(newTarget, 0.1f, obstacleLayer | playerLayer);
+            // 단, hit가 block 자기 자신인 경우는 무시
+            if (hit != null)
+            {
+                PlayerController hitPC = hit.GetComponent<PlayerController>();
+                if (hitPC != null && hitPC == block)
+                {
+                    hit = null;
+                }
+            }
+            bool isBlocked = (hit != null) || reservedSpots.Contains(newTarget);
+            return !isBlocked;
+        }
+
+        // 각 캐릭터별로 예약 처리:
         foreach (var pc in sortedPlayers)
         {
-            // effective 이동: 각 캐릭터마다 설정된 moveDistance와 Direction(예: 1 혹은 -1)을 곱해서 계산.
+            // effective 이동: 각 캐릭터마다 설정된 moveDistance와 Direction을 곱해서 계산.
             Vector3 proposedTarget = pc.transform.position + (Vector3)(dir * pc.moveDistance * pc.Direction);
 
-            // 장애물 또는 다른 플레이어(또는 예약된 칸) 체크.
-            Collider2D hit = Physics2D.OverlapCircle(proposedTarget, 0.1f, obstacleLayer + playerLayer);
-            bool blockedByObstacle = (hit != null);
-            bool blockedByReservation = reservedSpots.Contains(proposedTarget);
+            // 장애물 체크: 먼저 일반 장애물를 확인.
+            Collider2D hitObj = Physics2D.OverlapCircle(proposedTarget, 0.1f, obstacleLayer);
+            //Collider2D hitPlayer = Physics2D.OverlapCircle(proposedTarget, 0.1f, playerLayer);
+            bool blockedByObstacle = (hitObj != null);
+            //bool blockedByPlayer = (hitPlayer != null);
+            bool pushed = false;  // 밀렸는지 여부
 
-            if (!blockedByObstacle && !blockedByReservation)
+            // 만약 목적지에 어떤 물체가 있다면...
+            if (blockedByObstacle)
             {
-                // 이동 가능하면 해당 목적지를 예약하고 저장.
-                pc.PlannedTarget = proposedTarget;
-                reservedSpots.Add(proposedTarget);
+                // 만약 물체가 블록(즉, PlayerId == 2)라면 밀기를 시도
+                PlayerController pushedBlock = hitObj.GetComponent<PlayerController>();
+                if (pushedBlock != null && pushedBlock.PlayerId == 2)
+                {
+                    // 블록이 아직 예약되지 않고 움직이지 않은 상태여야 함.
+                    if (!pushedBlock.IsMoving && !reservedSpots.Contains(pushedBlock.transform.position))
+                    {
+                        // 블록 밀기 시도
+                        Vector3 blockNewTarget;
+                        if (TryPushBlock(pushedBlock, dir, out blockNewTarget))
+                        {
+                            // 블록을 밀 수 있다면, 블록의 목표를 갱신하고 예약 처리.
+                            pushedBlock.PlannedTarget = blockNewTarget;
+                            reservedSpots.Add(blockNewTarget);
+                            pushed = true;
+                            // 이후 원래 캐릭터는 pushedBlock이 있던 칸(즉, proposedTarget)으로 이동 가능하게 됨.
+                        }
+                    }
+                }
+            }
+
+            // 만약 목적지 칸이 예약되어 있거나, 일반 장애물이 있으면 이동 불가 처리.
+            if ((!pushed && blockedByObstacle) || reservedSpots.Contains(proposedTarget))
+            {
+                // 이동 불가: 현재 위치를 그대로 유지
+                pc.PlannedTarget = pc.transform.position;
             }
             else
             {
-                // 이동 불가하면 현재 위치를 그대로 저장하여 움직이지 않도록 함.
-                pc.PlannedTarget = pc.transform.position;
+                // 이동 가능: 해당 목적지 예약 및 저장.
+                pc.PlannedTarget = proposedTarget;
+                reservedSpots.Add(proposedTarget);
             }
         }
 
-        // 5) 모든 연산이 끝난 후, 각 캐릭터가 실제로 예약된 목표(PlannedTarget)로 동시에 이동.
+        // 5) 모든 연산이 끝난 후, 각 캐릭터가 동시에 예약된 목표(PlannedTarget)로 이동.
         foreach (var pc in sortedPlayers)
         {
             pc.StartMoveToPlannedTarget();
         }
     }
+
 
 }
