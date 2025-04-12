@@ -11,7 +11,7 @@ public class RainbowZone : MonoBehaviour
             int changedPlayerId = collision.GetComponent<PlayerController>().PlayerId + 1;
             if (changedPlayerId == 3) changedPlayerId = 0;
 
-            Instantiate(Players[changedPlayerId], collision.transform.position, Quaternion.identity);
+            Instantiate(Players[changedPlayerId], transform.position, Quaternion.identity);
             Destroy(collision.gameObject);
 
             Destroy(this.gameObject);

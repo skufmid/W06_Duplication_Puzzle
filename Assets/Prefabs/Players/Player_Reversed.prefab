@@ -10,11 +10,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 42645121573517452, guid: 94e59df5d23df224fb34a8039d8d4675, type: 3}
       propertyPath: m_Size.x
-      value: 0.14
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 42645121573517452, guid: 94e59df5d23df224fb34a8039d8d4675, type: 3}
       propertyPath: m_Size.y
-      value: 0.21
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 42645121573517452, guid: 94e59df5d23df224fb34a8039d8d4675, type: 3}
       propertyPath: m_Sprite
@@ -50,11 +50,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3184524765945557964, guid: 94e59df5d23df224fb34a8039d8d4675, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.x
-      value: 0.14
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3184524765945557964, guid: 94e59df5d23df224fb34a8039d8d4675, type: 3}
       propertyPath: m_SpriteTilingProperty.newSize.y
-      value: 0.21
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 4627851337105334358, guid: 94e59df5d23df224fb34a8039d8d4675, type: 3}
       propertyPath: PlayerId
