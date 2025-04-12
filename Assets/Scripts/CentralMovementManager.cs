@@ -106,6 +106,7 @@ public class CentralMovementManager : MonoBehaviour
         // 장애물 체크 시 사용할 레이어 (Hierarchy에서 "Obstacle"과 "Player"라는 레이어를 사용)
         int playerLayer = LayerMask.GetMask("Player");
         int obstacleLayer = LayerMask.GetMask("Obstacle");
+        int toySoldierLayer = LayerMask.GetMask("ToySoldier");
 
         // 내부 함수: 블록(플레이어ID 2) 밀기 시도. 성공하면 블록의 목표 위치를 반환.
         bool TryPushBlock(PlayerController block, Vector2 moveDir, out Vector3 newTarget)
@@ -138,13 +139,30 @@ public class CentralMovementManager : MonoBehaviour
         }
 
 
-        // 각 캐릭터별로 예약 처리:
+        // 6) 각 캐릭터별로 예약 처리:
         foreach (var pc in sortedPlayers)
         {
             if (pc.PlayerId != 2)
             {
                 // effective 이동: 각 캐릭터마다 설정된 moveDistance와 Direction을 곱해서 계산.
                 Vector3 proposedTarget = pc.transform.position + (Vector3)(dir * pc.moveDistance * pc.Direction);
+
+                // ★ ToySoldier 체크: 제안 칸에 ToySoldier가 있는지 확인 (ToySoldier는 별도 레이어)
+                Collider2D toySoldierHit = Physics2D.OverlapCircle(proposedTarget, 0.1f, toySoldierLayer + obstacleLayer);
+                if (toySoldierHit != null)
+                {
+                    ToySoldier soldier = toySoldierHit.GetComponent<ToySoldier>();
+                    if (soldier != null)
+                    {
+                        // 플레이어의 ID와 ToySoldier의 ID가 일치하지 않으면, 해당 플레이어를 파괴하고 다음으로 넘어갑니다.
+                        if (pc.PlayerId != soldier.ToySoldierId)
+                        {
+                            Destroy(pc.gameObject);
+                            continue;
+                        }
+                        // 일치하면 통과 처리를 계속 진행 (예약 및 이동)
+                    }
+                }
 
                 // 장애물 체크: 먼저 일반 장애물를 확인.
                 Collider2D hitObj = Physics2D.OverlapCircle(proposedTarget, 0.1f, obstacleLayer);
@@ -194,7 +212,7 @@ public class CentralMovementManager : MonoBehaviour
             }
         }
 
-        // 6) 모든 연산이 끝난 후, 각 캐릭터가 동시에 예약된 목표(PlannedTarget)로 이동.
+        // 7) 모든 연산이 끝난 후, 각 캐릭터가 동시에 예약된 목표(PlannedTarget)로 이동.
         foreach (var pc in sortedPlayers)
         {
             pc.StartMoveToPlannedTarget();
