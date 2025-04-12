@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      ToySolider1_0: -6741532707686263456
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
