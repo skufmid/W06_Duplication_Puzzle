@@ -24,6 +24,14 @@ public class PlayerController : MonoBehaviour
         CentralMovementManager.Instance.Register(this);
     }
 
+    void OnDestroy()
+    {
+        if (CentralMovementManager.Instance != null)
+        {
+            CentralMovementManager.Instance.Unregister(this);
+        }
+    }
+
     /// <summary>
     /// 중앙 매니저에서 결정한 PlannedTarget으로 이동 시작
     /// </summary>
