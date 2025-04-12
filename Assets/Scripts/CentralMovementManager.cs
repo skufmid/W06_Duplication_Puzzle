@@ -9,6 +9,7 @@ public class CentralMovementManager : MonoBehaviour
 
     // 등록된 모든 캐릭터 목록
     private List<PlayerController> players = new List<PlayerController>();
+    private bool isProcessingMove = false; // 이동 처리가 진행 중인지 여부
 
     private void Awake()
     {
@@ -43,8 +44,14 @@ public class CentralMovementManager : MonoBehaviour
     /// </summary>
     public void RequestMove(Vector2 dir)
     {
+        // 만약 이전 이동이 진행 중이면 입력 무시
+        if (isProcessingMove)
+            return;
+
         if (dir == Vector2.zero)
             return;
+
+        isProcessingMove = true; // 이동 처리 시작
 
         // 1) 이동 방향에 따른 기본 비교기 생성:
         // 예를 들어, dir.x > 0이면 오른쪽 이동이므로 x 좌표가 큰(오른쪽에 있는) 캐릭터부터 처리.
@@ -186,7 +193,20 @@ public class CentralMovementManager : MonoBehaviour
         {
             pc.StartMoveToPlannedTarget();
         }
+
+        // 모든 캐릭터가 이동을 완료할 때까지 기다린 후 isProcessingMove를 false로 변경
+        StartCoroutine(WaitForMoves());
     }
 
-
+    private System.Collections.IEnumerator WaitForMoves()
+    {
+        // 모든 캐릭터가 이동 중이지 않을 때까지 대기
+        bool anyMoving = true;
+        while (anyMoving)
+        {
+            anyMoving = players.Any(p => p.IsMoving);
+            yield return null;
+        }
+        isProcessingMove = false; // 이제 새로운 입력을 받을 수 있음
+    }
 }
