@@ -98,7 +98,7 @@ public class CentralMovementManager : MonoBehaviour
         bool TryPushBlock(PlayerController block, Vector2 moveDir, out Vector3 newTarget)
         {
             // 블록의 제안 이동 목표 계산 (블록은 일반적으로 Direction = 1로 사용)
-            newTarget = block.transform.position + (Vector3)(moveDir * block.moveDistance * block.Direction);
+            newTarget = block.transform.position + (Vector3)(moveDir * block.moveDistance);
             // 장애물 및 예약된 칸 체크 (블록은 밀리는 대상이므로, 자기 자신 외의 장애물만 고려)
             Collider2D hit = Physics2D.OverlapCircle(newTarget, 0.1f, obstacleLayer | playerLayer);
             // 단, hit가 block 자기 자신인 경우는 무시
@@ -114,66 +114,74 @@ public class CentralMovementManager : MonoBehaviour
             return !isBlocked;
         }
 
+        // 5) 목적지 예약 처리
+        // 현재 위치를 예약 처리
         foreach (var pc in sortedPlayers)
         {
-            reservedSpots.Add(pc.transform.position);
+            if (pc.PlayerId != 2)
+            {
+                reservedSpots.Add(pc.transform.position);
+            }
         }
 
 
-            // 각 캐릭터별로 예약 처리:
+        // 각 캐릭터별로 예약 처리:
         foreach (var pc in sortedPlayers)
         {
-            // effective 이동: 각 캐릭터마다 설정된 moveDistance와 Direction을 곱해서 계산.
-            Vector3 proposedTarget = pc.transform.position + (Vector3)(dir * pc.moveDistance * pc.Direction);
-
-            // 장애물 체크: 먼저 일반 장애물를 확인.
-            Collider2D hitObj = Physics2D.OverlapCircle(proposedTarget, 0.1f, obstacleLayer);
-            //Collider2D hitPlayer = Physics2D.OverlapCircle(proposedTarget, 0.1f, playerLayer);
-            bool blockedByObstacle = (hitObj != null);
-            //bool blockedByPlayer = (hitPlayer != null);
-            bool pushed = false;  // 밀렸는지 여부
-
-            // 만약 목적지에 어떤 물체가 있다면...
-            if (blockedByObstacle)
+            if (pc.PlayerId != 2)
             {
-                // 만약 물체가 블록(즉, PlayerId == 2)라면 밀기를 시도
-                PlayerController pushedBlock = hitObj.GetComponent<PlayerController>();
-                if (pushedBlock != null && pushedBlock.PlayerId == 2)
+                // effective 이동: 각 캐릭터마다 설정된 moveDistance와 Direction을 곱해서 계산.
+                Vector3 proposedTarget = pc.transform.position + (Vector3)(dir * pc.moveDistance * pc.Direction);
+
+                // 장애물 체크: 먼저 일반 장애물를 확인.
+                Collider2D hitObj = Physics2D.OverlapCircle(proposedTarget, 0.1f, obstacleLayer);
+                //Collider2D hitPlayer = Physics2D.OverlapCircle(proposedTarget, 0.1f, playerLayer);
+                bool blockedByObstacle = (hitObj != null);
+                //bool blockedByPlayer = (hitPlayer != null);
+                bool pushed = false;  // 밀렸는지 여부
+
+                // 만약 목적지에 어떤 물체가 있다면...
+                if (blockedByObstacle)
                 {
-                    // 블록이 아직 예약되지 않고 움직이지 않은 상태여야 함.
-                    if (!pushedBlock.IsMoving && !reservedSpots.Contains(pushedBlock.transform.position))
+                    // 만약 물체가 블록(즉, PlayerId == 2)라면 밀기를 시도
+                    PlayerController pushedBlock = hitObj.GetComponent<PlayerController>();
+                    if (pushedBlock != null && pushedBlock.PlayerId == 2)
                     {
-                        // 블록 밀기 시도
-                        Vector3 blockNewTarget;
-                        if (TryPushBlock(pushedBlock, dir, out blockNewTarget))
+                        // 블록이 아직 예약되지 않고 움직이지 않은 상태여야 함.
+                        if (!pushedBlock.IsMoving && !reservedSpots.Contains(pushedBlock.transform.position))
                         {
-                            // 블록을 밀 수 있다면, 블록의 목표를 갱신하고 예약 처리.
-                            pushedBlock.PlannedTarget = blockNewTarget;
-                            reservedSpots.Remove(pc.transform.position);
-                            reservedSpots.Add(blockNewTarget);
-                            pushed = true;
-                            // 이후 원래 캐릭터는 pushedBlock이 있던 칸(즉, proposedTarget)으로 이동 가능하게 됨.
+                            // 블록 밀기 시도
+                            Vector3 blockNewTarget;
+                            if (TryPushBlock(pushedBlock, dir * pc.Direction, out blockNewTarget))
+                            {
+                                // 블록을 밀 수 있다면, 블록의 목표를 갱신하고 예약 처리.
+                                pushedBlock.PlannedTarget = blockNewTarget;
+                                reservedSpots.Remove(pc.transform.position);
+                                reservedSpots.Add(blockNewTarget);
+                                pushed = true;
+                                // 이후 원래 캐릭터는 pushedBlock이 있던 칸(즉, proposedTarget)으로 이동 가능하게 됨.
+                            }
                         }
                     }
                 }
-            }
 
-            // 만약 목적지 칸이 예약되어 있거나, 일반 장애물이 있으면 이동 불가 처리.
-            if ((!pushed && blockedByObstacle) || reservedSpots.Contains(proposedTarget))
-            {
-                // 이동 불가: 현재 위치를 그대로 유지
-                pc.PlannedTarget = pc.transform.position;
-            }
-            else
-            {
-                // 이동 가능: 해당 목적지 예약 및 저장.
-                pc.PlannedTarget = proposedTarget;
-                reservedSpots.Remove(pc.transform.position);
-                reservedSpots.Add(proposedTarget);
+                // 만약 목적지 칸이 예약되어 있거나, 일반 장애물이 있으면 이동 불가 처리.
+                if ((!pushed && blockedByObstacle) || reservedSpots.Contains(proposedTarget))
+                {
+                    // 이동 불가: 현재 위치를 그대로 유지
+                    pc.PlannedTarget = pc.transform.position;
+                }
+                else
+                {
+                    // 이동 가능: 해당 목적지 예약 및 저장.
+                    pc.PlannedTarget = proposedTarget;
+                    reservedSpots.Remove(pc.transform.position);
+                    reservedSpots.Add(proposedTarget);
+                }
             }
         }
 
-        // 5) 모든 연산이 끝난 후, 각 캐릭터가 동시에 예약된 목표(PlannedTarget)로 이동.
+        // 6) 모든 연산이 끝난 후, 각 캐릭터가 동시에 예약된 목표(PlannedTarget)로 이동.
         foreach (var pc in sortedPlayers)
         {
             pc.StartMoveToPlannedTarget();
