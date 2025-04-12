@@ -32,6 +32,12 @@ public class CentralMovementManager : MonoBehaviour
         players.Add(pc);
     }
 
+    public void Unregister(PlayerController pc)
+    {
+        players.Remove(pc);
+    }
+
+
     private void HandleMoveInput(Vector2 dir)
     {
         RequestMove(dir);
