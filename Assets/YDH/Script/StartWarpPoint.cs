@@ -13,5 +13,8 @@ public class StartWarpPoint : MonoBehaviour
         {
             collision.transform.position = EndWarpPoint.transform.position;
         }
+
+        this.gameObject.SetActive(false);
+        EndWarpPoint.SetActive(false);
     }
 }
