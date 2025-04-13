@@ -1719,6 +1719,14 @@ PrefabInstance:
       propertyPath: EndWarpPoint
       value: 
       objectReference: {fileID: 464202619}
+    - target: {fileID: 4807128610817487212, guid: 6d9a1f1d6d5b8d84984c78e03c28128d, type: 3}
+      propertyPath: 'Players.Array.data[1]'
+      value: 
+      objectReference: {fileID: 8754574198700033540, guid: 960d2f4f6155cf54995ae1194e0c398f, type: 3}
+    - target: {fileID: 4807128610817487212, guid: 6d9a1f1d6d5b8d84984c78e03c28128d, type: 3}
+      propertyPath: 'Players.Array.data[2]'
+      value: 
+      objectReference: {fileID: 5582570529255201269, guid: 423319ed8ad611244b8fbcee14a33ca6, type: 3}
     - target: {fileID: 5842249477828839132, guid: 6d9a1f1d6d5b8d84984c78e03c28128d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6
@@ -2297,6 +2305,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1803745344194705194, guid: 6d9a1f1d6d5b8d84984c78e03c28128d, type: 3}
+      propertyPath: m_SpriteTilingProperty.border.w
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1803745344194705194, guid: 6d9a1f1d6d5b8d84984c78e03c28128d, type: 3}
+      propertyPath: m_SpriteTilingProperty.border.x
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1803745344194705194, guid: 6d9a1f1d6d5b8d84984c78e03c28128d, type: 3}
+      propertyPath: m_SpriteTilingProperty.border.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1803745344194705194, guid: 6d9a1f1d6d5b8d84984c78e03c28128d, type: 3}
+      propertyPath: m_SpriteTilingProperty.border.z
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1803745344194705194, guid: 6d9a1f1d6d5b8d84984c78e03c28128d, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.x
+      value: 0.984375
+      objectReference: {fileID: 0}
+    - target: {fileID: 1803745344194705194, guid: 6d9a1f1d6d5b8d84984c78e03c28128d, type: 3}
+      propertyPath: m_SpriteTilingProperty.oldSize.y
+      value: 0.984375
+      objectReference: {fileID: 0}
     - target: {fileID: 4807128610817487212, guid: 6d9a1f1d6d5b8d84984c78e03c28128d, type: 3}
       propertyPath: EndWarpPoint
       value: 
