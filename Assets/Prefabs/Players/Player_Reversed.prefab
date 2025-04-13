@@ -36,6 +36,10 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1793847959006888525, guid: 94e59df5d23df224fb34a8039d8d4675, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 4014742193927064526, guid: 8e6d6a8ce6918d84e80cba73583e2064, type: 3}
     - target: {fileID: 2742111734200415923, guid: 94e59df5d23df224fb34a8039d8d4675, type: 3}
       propertyPath: m_Name
       value: Player_Reversed
@@ -56,6 +60,10 @@ PrefabInstance:
       propertyPath: m_SpriteTilingProperty.newSize.y
       value: 0.75
       objectReference: {fileID: 0}
+    - target: {fileID: 3448414535340166057, guid: 94e59df5d23df224fb34a8039d8d4675, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 59702ea37a84d9a4abd3c494520688eb, type: 2}
     - target: {fileID: 4627851337105334358, guid: 94e59df5d23df224fb34a8039d8d4675, type: 3}
       propertyPath: PlayerId
       value: 1
