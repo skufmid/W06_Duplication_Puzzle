@@ -6,40 +6,40 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/JH/a2.unity
+    path: Assets/Scenes/JH/01/a2.unity
     guid: 86f370b963b5a754e83310a2ba583c4d
   - enabled: 1
-    path: Assets/Scenes/JH/a1.unity
+    path: Assets/Scenes/JH/01/a1.unity
     guid: 285904e22b9181642aaaf01e220c2211
   - enabled: 1
-    path: Assets/Scenes/JH/a.unity
+    path: Assets/Scenes/JH/01/a.unity
     guid: 0da3ce14df16d6a41b03ab90a176d7a5
   - enabled: 1
-    path: Assets/Scenes/JH/b.unity
+    path: Assets/Scenes/JH/DEPRECATED/b.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
-    path: Assets/Scenes/JH/d.unity
+    path: Assets/Scenes/JH/01/d.unity
     guid: 0def6413ca3bc604cbea6e7fbb7cb5fd
   - enabled: 1
-    path: Assets/Scenes/JH/e.unity
+    path: Assets/Scenes/JH/01/e.unity
     guid: 63dcd8514b652d44db2d6febedc9cfc8
   - enabled: 1
-    path: Assets/Scenes/JH/e1.unity
+    path: Assets/Scenes/JH/01/e1.unity
     guid: 94b64d87496d6344d892c0bda6c1940c
   - enabled: 1
-    path: Assets/Scenes/JH/f.unity
+    path: Assets/Scenes/JH/01/f.unity
     guid: 1e4b68bef25e2d94cbcca5cd2b168aed
   - enabled: 1
-    path: Assets/Scenes/JH/f1.unity
+    path: Assets/Scenes/JH/01/f1.unity
     guid: 65ffe32b21788e642b9609bc022cfd53
   - enabled: 1
-    path: Assets/Scenes/JH/f2.unity
+    path: Assets/Scenes/JH/01/f2.unity
     guid: c892b00f2e9b13546909826a914f9544
   - enabled: 1
-    path: Assets/Scenes/JH/g.unity
+    path: Assets/Scenes/JH/02/g.unity
     guid: 2ac9ebd8c11681940b5bb054ee14c9a0
   - enabled: 1
-    path: Assets/Scenes/JH/g1.unity
+    path: Assets/Scenes/JH/02/g1.unity
     guid: 6cee3c14954293b4ebae8fcbf619712f
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
