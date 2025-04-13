@@ -147,23 +147,6 @@ public class CentralMovementManager : MonoBehaviour
                 // effective 이동: 각 캐릭터마다 설정된 moveDistance와 Direction을 곱해서 계산.
                 Vector3 proposedTarget = pc.transform.position + (Vector3)(dir * pc.moveDistance * pc.Direction);
 
-                // ★ ToySoldier 체크: 제안 칸에 ToySoldier가 있는지 확인 (ToySoldier는 별도 레이어)
-                Collider2D toySoldierHit = Physics2D.OverlapCircle(proposedTarget, 0.1f, toySoldierLayer + obstacleLayer);
-                if (toySoldierHit != null)
-                {
-                    ToySoldier soldier = toySoldierHit.GetComponent<ToySoldier>();
-                    if (soldier != null)
-                    {
-                        // 플레이어의 ID와 ToySoldier의 ID가 일치하지 않으면, 해당 플레이어를 파괴하고 다음으로 넘어갑니다.
-                        if (pc.PlayerId != soldier.ToySoldierId)
-                        {
-                            Destroy(pc.gameObject);
-                            continue;
-                        }
-                        // 일치하면 통과 처리를 계속 진행 (예약 및 이동)
-                    }
-                }
-
                 // 장애물 체크: 먼저 일반 장애물를 확인.
                 Collider2D hitObj = Physics2D.OverlapCircle(proposedTarget, 0.1f, obstacleLayer);
                 //Collider2D hitPlayer = Physics2D.OverlapCircle(proposedTarget, 0.1f, playerLayer);
