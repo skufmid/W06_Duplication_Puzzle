@@ -9,13 +9,18 @@ public class PlayerController : MonoBehaviour
     public int Direction;
     public float moveDistance = 1f;
     public float moveSpeed = 5f;
-
+    
     // 중앙 매니저가 예약한 이동 목표
     public Vector3 PlannedTarget { get; set; }
-
+    private Animator _animator;
     // 이동 중인지를 외부에서 확인하기 위한 프로퍼티
     public bool IsMoving { get; private set; } = false;
-
+    
+    private void Awake()
+    {
+        _animator = GetComponentInChildren<Animator>();
+    }
+    
     private void Start()
     {
         // 시작 시 현재 위치를 기본 목표로 저장
@@ -44,12 +49,31 @@ public class PlayerController : MonoBehaviour
     private IEnumerator MoveCoroutine()
     {
         IsMoving = true;
-        // 예약된 목표까지 부드럽게 이동 (Lerp가 아닌 MoveTowards 방식)
+
+        // 이동 방향 계산
+        Vector3 direction = (PlannedTarget - transform.position).normalized;
+
+        if (_animator != null && direction != Vector3.zero)
+        {
+            if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+            {
+                if (direction.x > 0) _animator.SetTrigger("MoveRight");
+                else _animator.SetTrigger("MoveLeft");
+            }
+            else
+            {
+                if (direction.y > 0) _animator.SetTrigger("MoveUp");
+                else _animator.SetTrigger("MoveDown");
+            }
+        }
+
+        // 이동 처리 (MoveTowards 방식)
         while ((PlannedTarget - transform.position).sqrMagnitude > 0.01f)
         {
             transform.position = Vector3.MoveTowards(transform.position, PlannedTarget, moveSpeed * Time.deltaTime);
             yield return null;
         }
+
         transform.position = PlannedTarget;
         IsMoving = false;
     }

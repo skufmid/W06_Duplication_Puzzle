@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4710746813543622882, guid: ce16ec1787be9b646a050ff2d7a4511b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -3227964767077671885, guid: 321879b872b3049439ba1d5b04f8a46f, type: 3}
     - target: {fileID: 7268155527825150225, guid: ce16ec1787be9b646a050ff2d7a4511b, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -64,6 +68,10 @@ PrefabInstance:
       propertyPath: ToySoldierId
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8616903531327435923, guid: ce16ec1787be9b646a050ff2d7a4511b, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 2ff1bf10cd0a8ed42b2f65d369bf02ab, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -36,6 +36,10 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1793847959006888525, guid: 94e59df5d23df224fb34a8039d8d4675, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -9018763032582799577, guid: db68594f7d1d46f439615e6c10f6a1d6, type: 3}
     - target: {fileID: 2742111734200415923, guid: 94e59df5d23df224fb34a8039d8d4675, type: 3}
       propertyPath: m_Name
       value: Player_CannotMove
@@ -52,6 +56,10 @@ PrefabInstance:
       propertyPath: m_SpriteTilingProperty.newSize.y
       value: 0.75
       objectReference: {fileID: 0}
+    - target: {fileID: 3448414535340166057, guid: 94e59df5d23df224fb34a8039d8d4675, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: bd828a03aefd3794b92e7903bfab8770, type: 2}
     - target: {fileID: 4627851337105334358, guid: 94e59df5d23df224fb34a8039d8d4675, type: 3}
       propertyPath: Speed
       value: 0
@@ -63,6 +71,10 @@ PrefabInstance:
     - target: {fileID: 4627851337105334358, guid: 94e59df5d23df224fb34a8039d8d4675, type: 3}
       propertyPath: Direction
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5427502886778368955, guid: 94e59df5d23df224fb34a8039d8d4675, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 6240874390436918673, guid: 94e59df5d23df224fb34a8039d8d4675, type: 3}
       propertyPath: m_LocalPosition.x
