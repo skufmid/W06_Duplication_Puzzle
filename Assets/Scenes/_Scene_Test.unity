@@ -1034,6 +1034,22 @@ PrefabInstance:
       propertyPath: EndWarpPoint
       value: 
       objectReference: {fileID: 1023874102}
+    - target: {fileID: 4807128610817487212, guid: 6d9a1f1d6d5b8d84984c78e03c28128d, type: 3}
+      propertyPath: Players.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4807128610817487212, guid: 6d9a1f1d6d5b8d84984c78e03c28128d, type: 3}
+      propertyPath: 'Players.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2742111734200415923, guid: 94e59df5d23df224fb34a8039d8d4675, type: 3}
+    - target: {fileID: 4807128610817487212, guid: 6d9a1f1d6d5b8d84984c78e03c28128d, type: 3}
+      propertyPath: 'Players.Array.data[1]'
+      value: 
+      objectReference: {fileID: 8754574198700033540, guid: 960d2f4f6155cf54995ae1194e0c398f, type: 3}
+    - target: {fileID: 4807128610817487212, guid: 6d9a1f1d6d5b8d84984c78e03c28128d, type: 3}
+      propertyPath: 'Players.Array.data[2]'
+      value: 
+      objectReference: {fileID: 5582570529255201269, guid: 423319ed8ad611244b8fbcee14a33ca6, type: 3}
     - target: {fileID: 5842249477828839132, guid: 6d9a1f1d6d5b8d84984c78e03c28128d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5
