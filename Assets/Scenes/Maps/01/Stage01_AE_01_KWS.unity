@@ -1480,6 +1480,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2433722761548834300, guid: bb536388df93aee4cb9f33c52f109b8b, type: 3}
+      propertyPath: 'sceneNames.Array.data[1]'
+      value: Stage01_AE_01_KWS
+      objectReference: {fileID: 0}
     - target: {fileID: 5937118034631923976, guid: bb536388df93aee4cb9f33c52f109b8b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

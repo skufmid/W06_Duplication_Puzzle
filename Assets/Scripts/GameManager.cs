@@ -29,6 +29,10 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         curSceneIndex = Array.FindIndex(sceneNames, x => x.Equals(SceneManager.GetActiveScene().name));
+        if (curSceneIndex == -1)
+        {
+            curSceneIndex = 0;
+        }
         StartStage();
     }
 
