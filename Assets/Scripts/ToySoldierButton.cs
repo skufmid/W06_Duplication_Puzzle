@@ -2,8 +2,8 @@
 
 public class ToySoldierButton : MonoBehaviour
 {
-    public ToySoldier[] ToySoldiers;
-    public Sprite[] newSprite;
+    public GameObject[] ToySoldiersArray;
+    public RuntimeAnimatorController[] Controllers;
 
     private int newToySoldierId;
 
@@ -31,22 +31,27 @@ public class ToySoldierButton : MonoBehaviour
     {
         Debug.Log("ChangeToySoldierId");
 
-        if (ToySoldiers == null)
+        foreach (GameObject ToySoldiers in ToySoldiersArray)
         {
-            Debug.LogWarning("Target ToySoldier not assigned.");
-            return;
-        }
+            if (ToySoldiers == null)
+            {
+                Debug.LogWarning("Target ToySoldiers not assigned.");
+                return;
+            }
 
-        foreach (var Toy in ToySoldiers)
-        {
-            int newToySoldierId = 1 - Toy.ToySoldierId;
-            Toy.ToySoldierId = newToySoldierId;
+            ToySoldier[] ToySoldierArray = ToySoldiers.GetComponentsInChildren<ToySoldier>();
+            
+            foreach (ToySoldier Toy in ToySoldierArray)
+            {
+                int newToySoldierId = 1 - Toy.ToySoldierId;
+                Toy.ToySoldierId = newToySoldierId;
 
-            SpriteRenderer sr = Toy.GetComponent<SpriteRenderer>();
-            if (sr != null)
-                sr.sprite = newSprite[newToySoldierId];
-            else
-                Debug.LogWarning("Target ToySoldier has no SpriteRenderer.");
+                Animator anim = Toy.GetComponentInChildren<Animator>();
+                if (anim != null)
+                    anim.runtimeAnimatorController = Controllers[newToySoldierId];
+                else
+                    Debug.LogWarning("Target ToySoldier has no SpriteRenderer.");
+            }
         }
     }
 }
