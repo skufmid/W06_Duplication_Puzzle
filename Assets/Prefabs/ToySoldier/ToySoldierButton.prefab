@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 142082663458645166}
   - component: {fileID: 6987034376139548471}
   - component: {fileID: 3819054876986275166}
+  - component: {fileID: -586671801428604095}
   m_Layer: 0
   m_Name: ToySoldierButton
   m_TagString: Untagged
@@ -100,7 +101,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcbb67f7f62a96649b3f409750f44e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ToySoldiers: []
-  newSprite:
-  - {fileID: -6733520845340758836, guid: 032e2fd1f2a7aa84097f2e902f6ab53c, type: 3}
-  - {fileID: -6741532707686263456, guid: 34c3c9014cfbae44c8e860f5e560e4fa, type: 3}
+  ToySoldiersArray: []
+  Controllers: []
+--- !u!70 &-586671801428604095
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5110255279650570735}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Size: {x: 0.5000001, y: 1.0000002}
+  m_Direction: 0
