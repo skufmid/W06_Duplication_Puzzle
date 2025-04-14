@@ -24,6 +24,9 @@ public class GameManager : MonoBehaviour
     public int[] clearStages;
     public string savedData;
 
+    // sprite
+    public Sprite[] RoseVines;
+
     private void Awake()
     {
         if (Instance == null)
