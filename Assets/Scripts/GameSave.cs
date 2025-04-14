@@ -39,4 +39,12 @@ public static class GameSave
 
         return Encoding.UTF8.GetString(data);
     }
+
+    // 저장 데이터 초기화 메서드 (테스트용)
+    public static void ClearSaveData(string key)
+    {
+        PlayerPrefs.DeleteKey(key);
+        PlayerPrefs.Save();
+        Debug.Log($"저장 데이터 초기화: {key}");
+    }
 }
