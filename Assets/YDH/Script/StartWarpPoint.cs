@@ -1,5 +1,4 @@
-﻿using UnityEditor.ProjectWindowCallback;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class StartWarpPoint : MonoBehaviour
 {
