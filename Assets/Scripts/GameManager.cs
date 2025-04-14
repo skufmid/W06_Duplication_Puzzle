@@ -3,15 +3,26 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-
-    public string[] sceneNames;
-    int curSceneIndex;
+    public List<string[]> Worlds = new List<string[]>()
+    {
+        new string[] { },
+        new string[] {"", "FIX_Stage01_A_01_JJH",  "FIX_Stage01_ABE_01_YDH"},
+        new string[] { },
+        new string[] { }
+    };
+    int curWorld = 1;
+    int curScene;
     Goal[] goals;
     Spawner[] spawners;
+
+    // 저장 관련
+    public int[] clearStages;
+    public string savedData;
 
     private void Awake()
     {
@@ -28,10 +39,11 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        curSceneIndex = Array.FindIndex(sceneNames, x => x.Equals(SceneManager.GetActiveScene().name));
-        if (curSceneIndex == -1)
+        LoadGame();
+        curScene = Array.FindIndex(Worlds[curWorld], x => x.Equals(SceneManager.GetActiveScene().name));
+        if (curScene == -1)
         {
-            curSceneIndex = 0;
+            curScene = 0;
         }
         StartStage();
     }
@@ -54,7 +66,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void StartStage()
+    private void StartStage()
     {
         spawners = FindObjectsByType<Spawner>(FindObjectsSortMode.None);
         goals = FindObjectsByType<Goal>(FindObjectsSortMode.None);
@@ -65,17 +77,34 @@ public class GameManager : MonoBehaviour
         if (Array.TrueForAll(goals, goal => goal.isEntered))
         {
             Debug.Log("Clear");
+            clearStages[curWorld] = Mathf.Max(clearStages[curWorld], curScene);
+            SaveGame();
             GoNextStage();
         }
     }
 
-    public void GoNextStage()
+    private void GoNextStage()
     {
-        SceneManager.LoadScene(sceneNames[++curSceneIndex]);
+        SceneManager.LoadScene(Worlds[curWorld][++curScene]);
     }
 
-    //public void SpawnPlayer()
-    //{
-    //    Array.ForEach(spawners, spawn => spawn.Spawn());
-    //}
+    private void SaveGame()
+    {
+        savedData = string.Join(",", clearStages);
+        GameSave.SetEncryptedString("save", savedData);
+    }
+
+    private void LoadGame()
+    {
+        savedData = GameSave.GetEncryptedString("save");
+        if (savedData != null)
+        {
+            clearStages = Array.ConvertAll(savedData.Split(','), int.Parse);
+        }
+        else
+        {
+            clearStages = new int [] { 0, 0, 0, 0};
+        }
+    }
 }
+
