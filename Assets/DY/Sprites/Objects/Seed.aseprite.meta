@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 20d5dbbb05b64ba41bb4144859ffada2
+guid: baf02ae54d6a7b0438c8b19ef6bb2c57
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -36,7 +36,7 @@ ScriptedImporter:
     spriteMeshType: 0
     alignment: 0
     spritePivot: {x: 0.5, y: 0.5}
-    spritePixelsToUnits: 412
+    spritePixelsToUnits: 512
     spriteBorder: {x: 0, y: 0, z: 0, w: 0}
     spriteGenerateFallbackPhysicsShape: 0
     generateCubemap: 6
@@ -98,7 +98,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638802621025192194
+  platformSettingsDirtyTick: 638802636398743159
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -123,7 +123,7 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: Seed
+  - name: Seed 1
     originalName: 
     pivot: {x: 0.5555556, y: -0.48}
     alignment: 9
@@ -135,7 +135,7 @@ ScriptedImporter:
       y: 4
       width: 288
       height: 200
-    spriteID: 3d2f6749355a5d643a9fbdde6df1adac
+    spriteID: 2c75b506b0bde8548a9a59dbecf4e3db
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -147,8 +147,8 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -158743929
-    name: Seed
+    guid: 1334962268
+    name: Seed 1
     layerFlags: 0
     layerType: 0
     blendMode: 0
@@ -161,7 +161,7 @@ ScriptedImporter:
         y: 96
         width: 288
         height: 200
-      spriteId: 3d2f6749355a5d643a9fbdde6df1adac
+      spriteId: 2c75b506b0bde8548a9a59dbecf4e3db
     linkedCells: []
     parentIndex: -1
   platformSettings:
