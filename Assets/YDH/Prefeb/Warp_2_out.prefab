@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3698865182934121694}
   - component: {fileID: 8775812744519290650}
+  - component: {fileID: -8168364941837276681}
   m_Layer: 0
   m_Name: Warp_2_out
   m_TagString: Untagged
@@ -45,6 +46,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b296c5f58a3466e40af09a9edc2c1b04, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-8168364941837276681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6851256569430351593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a6bf53c80d60874398ba86f271a7ff0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2500636073080138882
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -58,12 +71,24 @@ PrefabInstance:
       value: Portal_2_Output
       objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: 62424d2c0433ccd4cbcae5cc43883227, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878350319992209165, guid: 62424d2c0433ccd4cbcae5cc43883227, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878350319992209165, guid: 62424d2c0433ccd4cbcae5cc43883227, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878350319992209165, guid: 62424d2c0433ccd4cbcae5cc43883227, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: 62424d2c0433ccd4cbcae5cc43883227, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1
+      value: -0.75
       objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: 62424d2c0433ccd4cbcae5cc43883227, type: 3}
       propertyPath: m_LocalPosition.z
@@ -96,6 +121,10 @@ PrefabInstance:
     - target: {fileID: 7878350319992209165, guid: 62424d2c0433ccd4cbcae5cc43883227, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7878350319992209165, guid: 62424d2c0433ccd4cbcae5cc43883227, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
