@@ -1312,6 +1312,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stage1
       objectReference: {fileID: 0}
+    - target: {fileID: 3626916397498700004, guid: f3085f5c164865345bca96ac9aa959ca, type: 3}
+      propertyPath: m_SortingOrder
+      value: -10
+      objectReference: {fileID: 0}
     - target: {fileID: 7878350319992209165, guid: f3085f5c164865345bca96ac9aa959ca, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.5
