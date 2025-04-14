@@ -62,37 +62,65 @@ public class StageSelectSceneHandler : MonoBehaviour
         {
             if (button.name == "PrevWorldButton")
             {
-                // worldNumber가 1이면 PrevWorldButton 비활성화
-                button.interactable = (worldNumber > 1);
+                // World 1은 항상 해금됨, worldNumber > 1일 때만 활성화
+                button.interactable = worldNumber > 1;
                 if (button.interactable)
                 {
+                    button.onClick.RemoveAllListeners();
                     button.onClick.AddListener(() =>
                     {
-                        if (worldNumber > 1)
+                        if (worldNumber <= 1)
                         {
-                            GameManager.Instance.CurWorld = worldNumber - 1;
-                            SceneController.Instance.ChangeScene($"Stage{worldNumber - 1}SelectScene");
+                            Debug.Log("StageSelectSceneHandler: 이미 첫 번째 월드입니다!");
+                            return;
                         }
+
+                        int targetWorld = worldNumber - 1;
+                        // World 1은 항상 해금됨이므로 추가 확인 불필요
+                        MoveToWorld(targetWorld);
                     });
                 }
             }
             else if (button.name == "NextWorldButton")
             {
-                // worldNumber가 3이면 NextWorldButton 비활성화
-                button.interactable = (worldNumber < 3);
+                // worldNumber가 최대 월드 미만이고, 다음 월드가 해금되었을 때만 활성화
+                int maxWorlds = GameManager.Instance.Worlds.Count - 1; // Worlds 리스트의 길이 (0번 제외)
+                bool isNextWorldUnlocked = worldNumber < maxWorlds && GameManager.Instance.IsWorldUnlocked(worldNumber + 1);
+                button.interactable = isNextWorldUnlocked;
+                Debug.Log($"NextWorldButton 활성화 여부: {isNextWorldUnlocked} (worldNumber = {worldNumber}, maxWorlds = {maxWorlds}, IsWorldUnlocked({worldNumber + 1}) = {isNextWorldUnlocked})");
+
                 if (button.interactable)
                 {
+                    button.onClick.RemoveAllListeners();
                     button.onClick.AddListener(() =>
                     {
-                        if (worldNumber < 3)
+                        if (worldNumber >= maxWorlds)
                         {
-                            GameManager.Instance.CurWorld = worldNumber + 1;
-                            SceneController.Instance.ChangeScene($"Stage{worldNumber + 1}SelectScene");
+                            Debug.Log("StageSelectSceneHandler: 이미 마지막 월드입니다!");
+                            return;
                         }
+
+                        int targetWorld = worldNumber + 1;
+                        if (!GameManager.Instance.IsWorldUnlocked(targetWorld))
+                        {
+                            Debug.Log($"StageSelectSceneHandler: World {targetWorld}는 해금되지 않았습니다! (clearStages[{targetWorld - 1}] = {GameManager.Instance.clearStages[targetWorld - 1]})");
+                            return;
+                        }
+
+                        MoveToWorld(targetWorld);
                     });
                 }
             }
         }
+    }
+
+    private void MoveToWorld(int targetWorld)
+    {
+        if (isTransitioning) return;
+        isTransitioning = true;
+        GameManager.Instance.CurWorld = targetWorld;
+        SceneController.Instance.ChangeScene($"Stage{targetWorld}SelectScene");
+        Debug.Log($"StageSelectSceneHandler: World {targetWorld}로 이동 - Stage{targetWorld}SelectScene");
     }
 
     private void SetupStageButtons()
@@ -125,10 +153,17 @@ public class StageSelectSceneHandler : MonoBehaviour
                 continue;
             }
 
-            string sceneName = stageSceneNames[i];
-            buttons[i].interactable = true; // 씬 이름이 있으면 활성화
-            buttons[i].onClick.RemoveAllListeners(); // 기존 리스너 제거
-            buttons[i].onClick.AddListener(() => GoToStage(sceneName));
+            // 스테이지 잠금 여부 확인 (i + 1은 스테이지 번호: 1부터 시작)
+            bool isStageUnlocked = GameManager.Instance.IsStageUnlocked(worldNumber, i + 1);
+            buttons[i].interactable = isStageUnlocked;
+            Debug.Log($"World {worldNumber} - Stage {i + 1} 버튼 활성화 상태: {isStageUnlocked}");
+
+            if (isStageUnlocked)
+            {
+                string sceneName = stageSceneNames[i];
+                buttons[i].onClick.RemoveAllListeners();
+                buttons[i].onClick.AddListener(() => GoToStage(sceneName));
+            }
         }
     }
 
