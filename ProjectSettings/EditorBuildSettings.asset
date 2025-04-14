@@ -9,25 +9,25 @@ EditorBuildSettings:
     path: Assets/Scenes/Maps/DEP/DEP_Stage01_E_01_JJH.unity
     guid: 86f370b963b5a754e83310a2ba583c4d
   - enabled: 1
-    path: Assets/Scenes/Maps/01/FIX_Stage01_A_01_JJH.unity
+    path: Assets/Scenes/Maps/01/COM_Stage01_A_01_JJH.unity
     guid: 285904e22b9181642aaaf01e220c2211
   - enabled: 1
-    path: Assets/Scenes/Maps/01/FIX_Stage01_AE_01_JJH.unity
+    path: Assets/Scenes/Maps/01/COM_Stage01_AE_01_JJH.unity
     guid: 0da3ce14df16d6a41b03ab90a176d7a5
   - enabled: 1
     path: Assets/Scenes/JH/DEPRECATED/b.unity
     guid: 8c9cfa26abfee488c85f1582747f6a02
   - enabled: 1
-    path: Assets/Scenes/Maps/01/FIX_Stage01_AE_02_JJH.unity
+    path: Assets/Scenes/Maps/01/COM_Stage01_AE_02_JJH.unity
     guid: 0def6413ca3bc604cbea6e7fbb7cb5fd
   - enabled: 1
-    path: Assets/Scenes/Maps/01/FIX_Stage01_BE_01_JJH.unity
+    path: Assets/Scenes/Maps/01/COM_Stage01_BE_01_JJH.unity
     guid: 63dcd8514b652d44db2d6febedc9cfc8
   - enabled: 1
     path: Assets/Scenes/Maps/02/FIX_Stage01_ABDE_01_JJH.unity
     guid: 94b64d87496d6344d892c0bda6c1940c
   - enabled: 1
-    path: Assets/Scenes/Maps/01/FIX_Stage01_BE_02_JJH.unity
+    path: Assets/Scenes/Maps/01/COM_Stage01_BE_02_JJH.unity
     guid: 1e4b68bef25e2d94cbcca5cd2b168aed
   - enabled: 1
     path: Assets/Scenes/Maps/01/FIX_Stage01_BE_03_JJH.unity
@@ -45,10 +45,10 @@ EditorBuildSettings:
     path: Assets/Scenes/_Scene_Test.unity
     guid: cec86cf7532b6434288133a74f199ad2
   - enabled: 1
-    path: Assets/Scenes/Maps/01/Stage01_AE_01_KWS.unity
+    path: Assets/Scenes/Maps/01/COM_Stage01_AE_01_KWS.unity
     guid: da246e56dc775e8418002a97c4921c12
   - enabled: 1
-    path: Assets/Scenes/Maps/01/FIX_Stage01_ABE_01_YDH.unity
+    path: Assets/Scenes/Maps/01/COM_Stage01_ABE_01_YDH.unity
     guid: dc09744a849cb5948a455b497305c783
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
