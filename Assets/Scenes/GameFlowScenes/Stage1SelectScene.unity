@@ -3809,15 +3809,14 @@ MonoBehaviour:
   backButton: {fileID: 1650486074}
   worldText: {fileID: 1497358431}
   stageSceneNames:
-  - FIX_Stage01_A_01_JJH
-  - FIX_Stage01_ABE_01_YDH
-  - FIX_Stage01_AE_01_JJH
-  - FIX_Stage01_AE_02_JJH
-  - FIX_Stage01_BE_01_JJH
-  - FIX_Stage01_BE_02_JJH
-  - FIX_Stage01_BE_03_JJH
-  - Stage01_AE_01_KWS
-  - Stage01_BE_01_KWS
+  - COM_Stage01_A_01_JJH
+  - COM_Stage01_ABE_01_YDH
+  - COM_Stage01_AE_01_KWS
+  - COM_Stage01_AE_02_JJH
+  - COM_Stage01_BE_01_JJH
+  - COM_Stage01_BE_01_KWS
+  - COM_Stage01_BE_02_JJH
+  - COM_Stage01_BE_03_JJH
 --- !u!1 &1979058142
 GameObject:
   m_ObjectHideFlags: 0

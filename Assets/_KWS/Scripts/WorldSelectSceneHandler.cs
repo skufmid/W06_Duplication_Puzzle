@@ -26,6 +26,7 @@ public class WorldSelectSceneHandler : MonoBehaviour
         {
             if (int.TryParse(button.name.Replace("Select", "").Replace("World", "").Replace("Button", ""), out int worldNumber))
             {
+                //GameManager.Instance.CurWorld = worldNumber;
                 string sceneName = $"Stage{worldNumber}SelectScene";
                 button.onClick.AddListener(() => OnWorldButtonClick(sceneName));
             }

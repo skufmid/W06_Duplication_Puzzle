@@ -70,6 +70,7 @@ public class StageSelectSceneHandler : MonoBehaviour
                     {
                         if (worldNumber > 1)
                         {
+                            GameManager.Instance.CurWorld = worldNumber - 1;
                             SceneController.Instance.ChangeScene($"Stage{worldNumber - 1}SelectScene");
                         }
                     });
@@ -85,6 +86,7 @@ public class StageSelectSceneHandler : MonoBehaviour
                     {
                         if (worldNumber < 3)
                         {
+                            GameManager.Instance.CurWorld = worldNumber + 1;
                             SceneController.Instance.ChangeScene($"Stage{worldNumber + 1}SelectScene");
                         }
                     });
