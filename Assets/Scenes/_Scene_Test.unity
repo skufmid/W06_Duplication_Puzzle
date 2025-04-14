@@ -794,6 +794,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2068501148566781649, guid: 1fd5edfcfdd1a6c41a6222a8b1f26c96, type: 3}
+      propertyPath: m_Size.x
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 7760198181332196110, guid: 1fd5edfcfdd1a6c41a6222a8b1f26c96, type: 3}
       propertyPath: m_Name
       value: RainbowTile
@@ -1052,7 +1056,7 @@ PrefabInstance:
       objectReference: {fileID: 5582570529255201269, guid: 423319ed8ad611244b8fbcee14a33ca6, type: 3}
     - target: {fileID: 5842249477828839132, guid: 6d9a1f1d6d5b8d84984c78e03c28128d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -5
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5842249477828839132, guid: 6d9a1f1d6d5b8d84984c78e03c28128d, type: 3}
       propertyPath: m_LocalPosition.y

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class PlayerController : MonoBehaviour
 {
@@ -13,18 +14,21 @@ public class PlayerController : MonoBehaviour
     // 중앙 매니저가 예약한 이동 목표
     public Vector3 PlannedTarget { get; set; }
     private Animator _animator;
+    private SpriteRenderer _renderer;
     // 이동 중인지를 외부에서 확인하기 위한 프로퍼티
     public bool IsMoving { get; private set; } = false;
     
     private void Awake()
     {
         _animator = GetComponentInChildren<Animator>();
+        _renderer = GetComponentInChildren<SpriteRenderer>();
     }
     
     private void Start()
     {
         // 시작 시 현재 위치를 기본 목표로 저장
         PlannedTarget = transform.position;
+        SetOrderInLayer();
         // 중앙 매니저에 자신을 등록
         CentralMovementManager.Instance.Register(this);
     }
@@ -49,7 +53,7 @@ public class PlayerController : MonoBehaviour
     private IEnumerator MoveCoroutine()
     {
         IsMoving = true;
-
+        SetOrderInLayer();
         // 이동 방향 계산
         Vector3 direction = (PlannedTarget - transform.position).normalized;
 
@@ -76,5 +80,10 @@ public class PlayerController : MonoBehaviour
 
         transform.position = PlannedTarget;
         IsMoving = false;
+    }
+
+    private void SetOrderInLayer()
+    {
+        _renderer.sortingOrder = 30 - 2 * (int)PlannedTarget.y;
     }
 }
