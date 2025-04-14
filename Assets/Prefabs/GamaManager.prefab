@@ -46,19 +46,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fccdde3bd3cfd8b45a6211e5297b6607, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneNames:
-  - 
-  - Stage01_AE_01_KWS
-  - a1
-  - a
-  - d
-  - e
-  - e1
-  - f
-  - f1
-  - f2
-  - g
-  - g1
+  clearStages: 
+  savedData: 
+  RoseVines:
+  - {fileID: 21300000, guid: bf31931b489061c48ad29171c4a20d08, type: 3}
+  - {fileID: 21300000, guid: ebf7ac4a80fc5fc4986418d910b95552, type: 3}
+  - {fileID: 21300000, guid: ea156908e1ec6264c84d126937e26bbf, type: 3}
 --- !u!114 &4624794489452936407
 MonoBehaviour:
   m_ObjectHideFlags: 0
