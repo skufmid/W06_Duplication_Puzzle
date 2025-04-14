@@ -13,35 +13,40 @@ public class GameManager : MonoBehaviour
         new string[] { },
 
         new string[] {"",
-            "COM_Stage01_A_01_JJH",
-            "COM_Stage01_ABE_01_YDH",
-            "COM_Stage01_AE_01_KWS",
-            "COM_Stage01_AE_02_JJH",
-            "COM_Stage01_BE_01_JJH",
-            "COM_Stage01_BE_01_KWS",
-            "COM_Stage01_BE_02_JJH",
-            "COM_Stage01_BE_03_JJH"
+            "World1_1",
+            "World1_2",
+            "World1_3",
+            "World1_4",
+            "World1_5",
+            "World1_6",
+            "World1_7",
+            "World1_8",
+            "World1_9"
         },
         new string[] {"",
-            "COM_Stage01_ABCE_01_YDH",
-            "COM_Stage02_ABDE_01_JJH",
-            "COM_Stage02_AE_01_JJH",
-            "LATER_Stage01_ABC_01_KWS",
-            "Stage01_ACE_01_KWS",
-            "Stage01_BD_01_KWS",
-            "Stage01_D_01_KWS",
-            "Stage01_DE_01_KWS",
-            "Stage02_AF_01_KWS"
+            "World2_1",
+            "World2_2",
+            "World2_3",
+            "World2_4",
+            "World2_5",
+            "World2_6",
+            "World2_7",
+            "World2_8",
+            "World2_9",
         },
         new string[] {"",
-            "FIX_Stage02_BCEFG_YDH",
-            "FIX_Stage02_BEFG_01_JJH",
-            "FIX_Stage02_BG_01_JJH",
-            "Stage02_ACEFG_01_YDH",
-            "Stage03_ABEGH_01_YDH",
-            "Stage03_BCEGH_01_YDH",
-            "Stage03_BCEGH_02_YDH",
-            "Stage03_BCEGH_03_YDH"
+            "World3_1",
+            "World3_2",
+            "World3_3",
+            "World3_4",
+            "World3_5",
+            "World3_6",
+            "World3_7",
+            "World3_8",
+            "World3_9"
+        },
+        new string[] { "",
+            "World4_1"
         }
     };
     int curWorld = 1;
@@ -77,7 +82,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         // 진행상태 초기화
-        GameSave.ClearSaveData("save");
+        //GameSave.ClearSaveData("save");
 
         LoadGame();
         curScene = Array.FindIndex(Worlds[curWorld], x => x.Equals(SceneManager.GetActiveScene().name));

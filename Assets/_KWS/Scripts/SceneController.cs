@@ -46,7 +46,7 @@ public class SceneController : MonoBehaviour
         {
             // 현재 씬이 스테이지 씬인지 확인
             string currentScene = SceneManager.GetActiveScene().name;
-            if (currentScene.StartsWith("COM") && !currentScene.EndsWith("SelectScene"))
+            if (currentScene.StartsWith("World") && !currentScene.EndsWith("Scene"))
             {
                 // 스테이지 씬에서만 PauseMenu 호출
                 GameManager.Instance.TogglePause();
