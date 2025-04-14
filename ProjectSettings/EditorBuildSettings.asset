@@ -38,7 +38,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Maps/01/COM_Stage01_BE_02_JJH.unity
     guid: 1e4b68bef25e2d94cbcca5cd2b168aed
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Maps/01/FIX_Stage01_BE_03_JJH.unity
     guid: 65ffe32b21788e642b9609bc022cfd53
   - enabled: 1

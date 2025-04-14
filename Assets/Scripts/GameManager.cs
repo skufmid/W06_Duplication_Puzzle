@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
         new string[] { }
     };
     int curWorld = 1;
+    public int CurWorld { get { return curWorld; } set { curWorld = value; } }
     int curScene;
     Goal[] goals;
     Spawner[] spawners;
@@ -26,6 +27,10 @@ public class GameManager : MonoBehaviour
 
     // sprite
     public Sprite[] RoseVines;
+
+    // 일시정지 상태
+    private bool isPaused = false;
+    public bool IsPaused { get { return isPaused; } }
 
     private void Awake()
     {
@@ -63,7 +68,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        if (!isPaused && Input.GetKeyDown(KeyCode.R))
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
@@ -108,6 +113,26 @@ public class GameManager : MonoBehaviour
         {
             clearStages = new int [] { 0, 0, 0, 0};
         }
+    }
+
+    public void TogglePause()
+    {
+        isPaused = !isPaused;
+        Time.timeScale = isPaused ? 0f : 1f;
+        Debug.Log($"Game Paused: {isPaused}");
+
+        PauseMenuHandler pauseMenu = SceneController.Instance?.GetPauseMenuHandler();
+        if (pauseMenu != null)
+        {
+            pauseMenu.SetMenuActive(isPaused);
+        }
+        else
+        {
+            Debug.LogWarning("PauseMenuHandler를 찾을 수 없습니다!");
+        }
+
+        // StageSelectScene에서는 커서 유지
+        string currentScene = SceneManager.GetActiveScene().name;
     }
 }
 
