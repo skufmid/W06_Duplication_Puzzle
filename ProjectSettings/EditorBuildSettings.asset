@@ -21,14 +21,14 @@ EditorBuildSettings:
     path: Assets/Scenes/GameFlowScenes/Stage3SelectScene.unity
     guid: a5927d6e7243fa54eb3bf5eb5795d87c
   - enabled: 1
+    path: Assets/Scenes/Maps/01/World1_1.unity
+    guid: 1c53b8a776e41544184cce23556805a3
+  - enabled: 1
     path: Assets/Scenes/Maps/01/World1_2.unity
     guid: 285904e22b9181642aaaf01e220c2211
   - enabled: 1
-    path: Assets/Scenes/Maps/01/World1_9.unity
-    guid: dc09744a849cb5948a455b497305c783
-  - enabled: 1
-    path: Assets/Scenes/Maps/02/World2_2.unity
-    guid: 0da3ce14df16d6a41b03ab90a176d7a5
+    path: Assets/Scenes/Maps/01/World1_3.unity
+    guid: da246e56dc775e8418002a97c4921c12
   - enabled: 1
     path: Assets/Scenes/Maps/01/World1_4.unity
     guid: 0def6413ca3bc604cbea6e7fbb7cb5fd
@@ -36,17 +36,32 @@ EditorBuildSettings:
     path: Assets/Scenes/Maps/01/World1_5.unity
     guid: 63dcd8514b652d44db2d6febedc9cfc8
   - enabled: 1
+    path: Assets/Scenes/Maps/01/World1_6.unity
+    guid: a1436258c7c481a47a353ebab46047a6
+  - enabled: 1
     path: Assets/Scenes/Maps/01/World1_7.unity
     guid: 1e4b68bef25e2d94cbcca5cd2b168aed
   - enabled: 1
-    path: Assets/Scenes/Maps/01/COM_Stage01_BE_03_JJH.unity
+    path: Assets/Scenes/Maps/01/World1_8.unity
     guid: 562baa8974a9ffe4abbaef60dd7c0243
   - enabled: 1
-    path: Assets/Scenes/Maps/01/World1_3.unity
-    guid: da246e56dc775e8418002a97c4921c12
+    path: Assets/Scenes/Maps/01/World1_9.unity
+    guid: dc09744a849cb5948a455b497305c783
   - enabled: 1
-    path: Assets/Scenes/Maps/01/World1_6.unity
-    guid: a1436258c7c481a47a353ebab46047a6
+    path: Assets/Scenes/Maps/02/World2_1.unity
+    guid: 675120547947f054da5941087e3c8c3b
+  - enabled: 1
+    path: Assets/Scenes/Maps/02/World2_2.unity
+    guid: 0da3ce14df16d6a41b03ab90a176d7a5
+  - enabled: 1
+    path: Assets/Scenes/Maps/02/World2_3.unity
+    guid: f2a13104766b9b443a48e0820619a990
+  - enabled: 1
+    path: Assets/Scenes/Maps/02/World2_4.unity
+    guid: 8bc5007dcea939f4d9570bac55d80134
+  - enabled: 1
+    path: Assets/Scenes/Maps/02/World2_5.unity
+    guid: aa86431d45d5bd4449ceb682da848039
   - enabled: 1
     path: Assets/Scenes/Maps/02/World2_6.unity
     guid: 94b64d87496d6344d892c0bda6c1940c
@@ -60,29 +75,17 @@ EditorBuildSettings:
     path: Assets/Scenes/Maps/02/World2_9.unity
     guid: c3d9044dd02d5954b9e5a34247157dda
   - enabled: 1
-    path: Assets/Scenes/Maps/02/World2_3.unity
-    guid: f2a13104766b9b443a48e0820619a990
-  - enabled: 1
-    path: Assets/Scenes/Maps/02/World2_1.unity
-    guid: 675120547947f054da5941087e3c8c3b
-  - enabled: 1
-    path: Assets/Scenes/Maps/02/World2_4.unity
-    guid: 8bc5007dcea939f4d9570bac55d80134
-  - enabled: 1
-    path: Assets/Scenes/Maps/DEP/Stage02_AF_01_KWS.unity
-    guid: dee43f84a44d42644b284e408b62432c
-  - enabled: 1
-    path: Assets/Scenes/Maps/03/World3_4.unity
-    guid: 515b0839d761af6498c8d0d6d05d2e0b
-  - enabled: 1
-    path: Assets/Scenes/Maps/03/World3_3.unity
-    guid: 6cee3c14954293b4ebae8fcbf619712f
-  - enabled: 1
     path: Assets/Scenes/Maps/03/World3_1.unity
     guid: 2ac9ebd8c11681940b5bb054ee14c9a0
   - enabled: 1
     path: Assets/Scenes/Maps/03/World3_2.unity
     guid: 94e5c065345807a4c93ad7f3d0189e69
+  - enabled: 1
+    path: Assets/Scenes/Maps/03/World3_3.unity
+    guid: 6cee3c14954293b4ebae8fcbf619712f
+  - enabled: 1
+    path: Assets/Scenes/Maps/03/World3_4.unity
+    guid: 515b0839d761af6498c8d0d6d05d2e0b
   - enabled: 1
     path: Assets/Scenes/Maps/03/World3_5.unity
     guid: 42bb57bfc4fac72408159e7a72ce002a
@@ -90,11 +93,17 @@ EditorBuildSettings:
     path: Assets/Scenes/Maps/03/World3_6.unity
     guid: bcdd96c7122475e479b35d695e1f5011
   - enabled: 1
+    path: Assets/Scenes/Maps/03/World3_7.unity
+    guid: 610216ac5cffbe54092bfffd5a768393
+  - enabled: 1
+    path: Assets/Scenes/Maps/03/world3_8.unity
+    guid: 1d567289638fc1d4591b6c1636cdd5c9
+  - enabled: 1
     path: Assets/Scenes/Maps/03/World3_9.unity
     guid: af7ce2073abca5941b329e2bd30da30e
   - enabled: 1
-    path: Assets/Scenes/Maps/03/World3_7.unity
-    guid: 610216ac5cffbe54092bfffd5a768393
+    path: Assets/Scenes/Maps/04/World4_1.unity
+    guid: 76b2c946245b16b40983076d87b2a9ed
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
