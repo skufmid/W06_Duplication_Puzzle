@@ -524,6 +524,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2433722761548834300, guid: bb536388df93aee4cb9f33c52f109b8b, type: 3}
+      propertyPath: congratulationCanvas
+      value: 
+      objectReference: {fileID: 6334703887411146424, guid: fb37c7047f52cb94489818ea9318336d, type: 3}
     - target: {fileID: 5937118034631923976, guid: bb536388df93aee4cb9f33c52f109b8b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

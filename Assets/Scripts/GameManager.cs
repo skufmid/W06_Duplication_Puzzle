@@ -186,7 +186,8 @@ public class GameManager : MonoBehaviour
     {
         if (congratulationCanvas != null)
         {
-            congratulationCanvas.SetActive(true);
+            //congratulationCanvas.SetActive(true);
+            Instantiate(congratulationCanvas);
             Debug.Log("축하 캔버스 표시: 모든 맵 클리어!");
         }
         else
