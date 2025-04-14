@@ -26,9 +26,17 @@ public class WorldSelectSceneHandler : MonoBehaviour
         {
             if (int.TryParse(button.name.Replace("Select", "").Replace("World", "").Replace("Button", ""), out int worldNumber))
             {
-                //GameManager.Instance.CurWorld = worldNumber;
-                string sceneName = $"Stage{worldNumber}SelectScene";
-                button.onClick.AddListener(() => OnWorldButtonClick(sceneName));
+                // 월드 잠금 여부 확인
+                bool isUnlocked = GameManager.Instance.IsWorldUnlocked(worldNumber);
+                button.interactable = isUnlocked;
+                Debug.Log($"World {worldNumber} 버튼 활성화 상태: {isUnlocked}");
+
+                if (isUnlocked)
+                {
+                    GameManager.Instance.CurWorld = worldNumber;
+                    string sceneName = $"Stage{worldNumber}SelectScene";
+                    button.onClick.AddListener(() => OnWorldButtonClick(sceneName));
+                }
             }
         }
     }
