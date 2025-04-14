@@ -66,6 +66,13 @@ public class GameManager : MonoBehaviour
     private bool isPaused = false;
     public bool IsPaused { get { return isPaused; } }
 
+
+    bool isAllMainStagesCleared = false;
+    public bool IsAllMainStagesCleared => isAllMainStagesCleared;
+
+    [SerializeField] GameObject congratulationCanvas;
+
+
     private void Awake()
     {
         if (Instance == null)
@@ -83,6 +90,14 @@ public class GameManager : MonoBehaviour
     {
         // 진행상태 초기화
         //GameSave.ClearSaveData("save");
+
+
+        // World 1~3의 1~8 스테이지 클리어 상태로 설정
+        //clearStages = new int[] { 0, 8, 8, 8, 0 }; // World 0, World 1, World 2, World 3, World 4
+        //isAllMainStagesCleared = AreAllMainStagesCleared(); // false가 되어야 함
+        //Debug.Log($"Start: clearStages = [{string.Join(", ", clearStages)}], isAllMainStagesCleared = {isAllMainStagesCleared}");
+        //SaveGame();
+
 
         LoadGame();
         curScene = Array.FindIndex(Worlds[curWorld], x => x.Equals(SceneManager.GetActiveScene().name));
@@ -133,7 +148,51 @@ public class GameManager : MonoBehaviour
             clearStages[curWorld] = Mathf.Max(clearStages[curWorld], curScene);
             Debug.Log($"clearStages[{curWorld}] 업데이트: {previousClearStages} -> {clearStages[curWorld]}");
             SaveGame();
+
+            // World 4 클리어 시 축하 캔버스 표시
+            if (curWorld == 4 && curScene == 1)
+            {
+                ShowCongratulationCanvas();
+                return;
+            }
+
+            // World 1~3 모든 스테이지 클리어 확인
+            if (!isAllMainStagesCleared && AreAllMainStagesCleared())
+            {
+                isAllMainStagesCleared = true;
+                SaveGame();
+            }
+
             SceneController.Instance.ChangeScene($"Stage{curWorld}SelectScene");
+        }
+    }
+
+    private bool AreAllMainStagesCleared()
+    {
+        for (int i = 1; i < Worlds.Count - 1; i++) // World 0 제외, World 4 제외
+        {
+            int lastStageIndex = Worlds[i].Length - 1;
+            if (clearStages[i] < lastStageIndex)
+            {
+                Debug.Log($"모든 메인 스테이지 클리어 아님: World {i}, clearStages[{i}] = {clearStages[i]}, 마지막 스테이지 = {lastStageIndex}");
+                return false;
+            }
+        }
+        Debug.Log("모든 메인 스테이지 클리어 확인됨!");
+        return true;
+    }
+
+    private void ShowCongratulationCanvas()
+    {
+        if (congratulationCanvas != null)
+        {
+            congratulationCanvas.SetActive(true);
+            Debug.Log("축하 캔버스 표시: 모든 맵 클리어!");
+        }
+        else
+        {
+            Debug.LogWarning("축하 캔버스가 할당되지 않았습니다!");
+            SceneController.Instance.ChangeScene("WorldSelectScene");
         }
     }
 
@@ -144,7 +203,7 @@ public class GameManager : MonoBehaviour
 
     private void SaveGame()
     {
-        savedData = string.Join(",", clearStages);
+        savedData = string.Join(",", clearStages) + "|" + isAllMainStagesCleared;
         GameSave.SetEncryptedString("save", savedData);
     }
 
@@ -155,23 +214,29 @@ public class GameManager : MonoBehaviour
         {
             try
             {
-                clearStages = Array.ConvertAll(savedData.Split(','), int.Parse);
+                string[] parts = savedData.Split('|');
+                clearStages = Array.ConvertAll(parts[0].Split(','), int.Parse);
                 if (clearStages.Length != Worlds.Count)
                 {
                     Debug.LogWarning($"clearStages 길이 불일치: 예상 {Worlds.Count}, 실제 {clearStages.Length}. 초기화합니다.");
-                    clearStages = new int[] { 0, 0, 0, 0 };
+                    clearStages = new int[] { 0, 0, 0, 0, 0 }; // World 4 포함
+                }
+                if (parts.Length > 1)
+                {
+                    isAllMainStagesCleared = bool.Parse(parts[1]);
                 }
             }
             catch (Exception e)
             {
-                Debug.LogError($"clearStages 파싱 실패: {e.Message}. 초기화합니다.");
-                clearStages = new int[] { 0, 0, 0, 0 };
+                Debug.LogError($"저장 데이터 파싱 실패: {e.Message}. 초기화합니다.");
+                clearStages = new int[] { 0, 0, 0, 0, 0 };
+                isAllMainStagesCleared = false;
             }
         }
         else
         {
-            // World 1의 Stage 1만 활성화 상태
-            clearStages = new int[] { 0, 0, 0, 0 };
+            clearStages = new int[] { 0, 0, 0, 0, 0 };
+            isAllMainStagesCleared = false;
             Debug.Log($"저장 데이터가 없어 초기화됨: World 1의 Stage 1만 활성화 상태 (clearStages: {string.Join(",", clearStages)})");
             SaveGame();
         }
@@ -203,12 +268,16 @@ public class GameManager : MonoBehaviour
     {
         if (worldNumber == 1) return true;
 
-        int previousWorld = worldNumber - 1;
-        int requiredStages;
+        // World 4: World 1~3 모든 스테이지 클리어 후 해금
+        if (worldNumber == 4)
+        {
+            bool unlocked = isAllMainStagesCleared;
+            Debug.Log($"World 4 잠금 해제 여부: {unlocked} (isAllMainStagesCleared = {isAllMainStagesCleared})");
+            return unlocked;
+        }
 
-        // World 2: World 1에서 4개 이상 스테이지 클리어
-        // World 3: World 2에서 4개 이상 스테이지 클리어
-        requiredStages = 5;
+        int previousWorld = worldNumber - 1;
+        int requiredStages = 5;
 
         bool isUnlocked = clearStages[previousWorld] >= requiredStages;
         Debug.Log($"World {worldNumber} 잠금 해제 여부: {isUnlocked} (clearStages[{previousWorld}] = {clearStages[previousWorld]}, requiredStages = {requiredStages})");
