@@ -96,7 +96,7 @@ EditorBuildSettings:
     path: Assets/Scenes/Maps/03/World3_7.unity
     guid: 610216ac5cffbe54092bfffd5a768393
   - enabled: 1
-    path: Assets/Scenes/Maps/03/world3_8.unity
+    path: Assets/Scenes/Maps/03/World3_8.unity
     guid: 1d567289638fc1d4591b6c1636cdd5c9
   - enabled: 1
     path: Assets/Scenes/Maps/03/World3_9.unity

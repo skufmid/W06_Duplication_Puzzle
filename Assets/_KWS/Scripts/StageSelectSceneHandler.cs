@@ -4,11 +4,11 @@ using TMPro;
 
 public class StageSelectSceneHandler : MonoBehaviour
 {
-    [SerializeField] int worldNumber = 1; // Inspector에서 월드 번호 설정 (1, 2, 3)
+    [SerializeField] int worldNumber = 1; // Inspector에서 월드 번호 설정 (1, 2, 3, 4)
     [SerializeField] GameObject worldNavigation; // 상단: 텍스트 (이동 버튼은 선택 사항)
     [SerializeField] GameObject stageButtons; // 중단: 스테이지 버튼 10개
     [SerializeField] GameObject backButton; // 하단: SelectWorldScene으로 돌아가는 버튼
-    [SerializeField] TextMeshProUGUI worldText; // "World X" 표시
+    [SerializeField] TextMeshProUGUI worldText; // "World X" 또는 "Bonus Stage" 표시
 
     [SerializeField] string[] stageSceneNames; // Inspector에서 입력받을 씬 이름 배열
 
@@ -17,7 +17,7 @@ public class StageSelectSceneHandler : MonoBehaviour
     void Start()
     {
         // 월드 번호 유효성 체크
-        if (worldNumber < 1 || worldNumber > 3)
+        if (worldNumber < 1 || worldNumber > 4) // World 4까지 지원
         {
             Debug.LogWarning($"유효하지 않은 월드 번호: {worldNumber}. 기본값 1로 설정.");
             worldNumber = 1;
@@ -43,7 +43,7 @@ public class StageSelectSceneHandler : MonoBehaviour
         }
 
         // 월드 텍스트 설정
-        worldText.text = $"월드 {worldNumber}";
+        worldText.text = worldNumber == 4 ? "Bonus Stage" : $"월드 {worldNumber}";
 
         // 스테이지 버튼 리스너 설정
         SetupStageButtons();
@@ -76,7 +76,6 @@ public class StageSelectSceneHandler : MonoBehaviour
                         }
 
                         int targetWorld = worldNumber - 1;
-                        // World 1은 항상 해금됨이므로 추가 확인 불필요
                         MoveToWorld(targetWorld);
                     });
                 }
@@ -149,6 +148,13 @@ public class StageSelectSceneHandler : MonoBehaviour
             if (i >= stageSceneNames.Length || string.IsNullOrEmpty(stageSceneNames[i]))
             {
                 Debug.LogWarning($"StageButton{i + 1}에 대응하는 씬 이름이 비어 있습니다!");
+                buttons[i].interactable = false;
+                continue;
+            }
+
+            // World 4의 경우 첫 번째 스테이지만 활성화
+            if (worldNumber == 4 && i > 0)
+            {
                 buttons[i].interactable = false;
                 continue;
             }
