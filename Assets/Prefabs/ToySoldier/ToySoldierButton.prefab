@@ -100,7 +100,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcbb67f7f62a96649b3f409750f44e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ToySoldiers: []
-  newSprite:
-  - {fileID: -6733520845340758836, guid: 032e2fd1f2a7aa84097f2e902f6ab53c, type: 3}
-  - {fileID: -6741532707686263456, guid: 34c3c9014cfbae44c8e860f5e560e4fa, type: 3}
+  ToySoldiersArray:
+  - {fileID: 0}
+  - {fileID: 0}
+  Controllers:
+  - {fileID: 9100000, guid: a737010712383d947a0ef4efde5505ff, type: 2}
+  - {fileID: 9100000, guid: 2ff1bf10cd0a8ed42b2f65d369bf02ab, type: 2}
