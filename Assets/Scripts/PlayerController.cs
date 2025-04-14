@@ -57,7 +57,7 @@ public class PlayerController : MonoBehaviour
         // 이동 방향 계산
         Vector3 direction = (PlannedTarget - transform.position).normalized;
 
-        if (_animator != null && direction != Vector3.zero)
+        if (_animator != null && direction != Vector3.zero && PlayerId != 2)
         {
             if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
             {
