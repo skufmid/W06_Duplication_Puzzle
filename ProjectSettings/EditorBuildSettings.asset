@@ -6,19 +6,19 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/_KWS/Scenes/TitleScenes/TitleScene.unity
+    path: Assets/Scenes/Maps/GameFlowScenes/TitleScene.unity
     guid: 8f2b1e4c9e5099e4fbdd9bf3dfac6300
   - enabled: 1
-    path: Assets/_KWS/Scenes/TitleScenes/WorldSelectScene.unity
+    path: Assets/Scenes/Maps/GameFlowScenes/WorldSelectScene.unity
     guid: 16f6e9df6d7674e4994d8e30662c6849
   - enabled: 1
-    path: Assets/_KWS/Scenes/TitleScenes/Stage1SelectScene.unity
+    path: Assets/Scenes/Maps/GameFlowScenes/Stage1SelectScene.unity
     guid: 54e81b14427877b488227c45ec118021
   - enabled: 1
-    path: Assets/_KWS/Scenes/TitleScenes/Stage2SelectScene.unity
+    path: Assets/Scenes/Maps/GameFlowScenes/Stage2SelectScene.unity
     guid: 420d60c153a4f9547b81ed1fdd03a680
   - enabled: 1
-    path: Assets/_KWS/Scenes/TitleScenes/Stage3SelectScene.unity
+    path: Assets/Scenes/Maps/GameFlowScenes/Stage3SelectScene.unity
     guid: a5927d6e7243fa54eb3bf5eb5795d87c
   - enabled: 1
     path: Assets/Scenes/Maps/01/FIX_Stage01_A_01_JJH.unity
