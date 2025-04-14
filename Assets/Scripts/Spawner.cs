@@ -4,14 +4,6 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     public GameObject PlayerPrefab;
-    public int remainCount;
-    private TextMeshPro remainCountText;
-
-    private void Awake()
-    {
-        remainCountText = GetComponentInChildren<TextMeshPro>();
-        UpdateText();
-    }
 
     private void OnMouseDown()
     {
@@ -20,20 +12,10 @@ public class Spawner : MonoBehaviour
 
     public void Spawn()
     {
-        if (remainCount <= 0) return;
-
-        remainCount--;
-        Instantiate(PlayerPrefab, transform.position, Quaternion.identity);
-        UpdateText();
-
-        if (remainCount == 0)
+        if (gameObject.scene.isLoaded)
         {
+            Instantiate(PlayerPrefab, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
-    }
-
-    public void UpdateText()
-    {
-        remainCountText.text = remainCount.ToString();
     }
 }
