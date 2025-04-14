@@ -43,7 +43,7 @@ public class StageSelectSceneHandler : MonoBehaviour
         }
 
         // 월드 텍스트 설정
-        worldText.text = $"World {worldNumber}";
+        worldText.text = $"월드 {worldNumber}";
 
         // 스테이지 버튼 리스너 설정
         SetupStageButtons();
