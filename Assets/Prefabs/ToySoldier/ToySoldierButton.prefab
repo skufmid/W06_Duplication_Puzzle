@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 142082663458645166}
   - component: {fileID: 6987034376139548471}
   - component: {fileID: 3819054876986275166}
+  - component: {fileID: -8501489049606926257}
   m_Layer: 0
   m_Name: ToySoldierButton
   m_TagString: Untagged
@@ -106,3 +107,15 @@ MonoBehaviour:
   Controllers:
   - {fileID: 9100000, guid: a737010712383d947a0ef4efde5505ff, type: 2}
   - {fileID: 9100000, guid: 2ff1bf10cd0a8ed42b2f65d369bf02ab, type: 2}
+--- !u!114 &-8501489049606926257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5110255279650570735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a6bf53c80d60874398ba86f271a7ff0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
