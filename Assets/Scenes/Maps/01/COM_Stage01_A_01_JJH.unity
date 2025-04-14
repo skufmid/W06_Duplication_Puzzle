@@ -3638,13 +3638,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spawner
       objectReference: {fileID: 0}
+    - target: {fileID: 6065884156774616173, guid: 0deeda22339b16343bd4c1e682d306d3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3484071515228139378, guid: 0deeda22339b16343bd4c1e682d306d3, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0deeda22339b16343bd4c1e682d306d3, type: 3}
 --- !u!1001 &3795318353112133678
 PrefabInstance:
