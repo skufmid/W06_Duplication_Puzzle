@@ -4,36 +4,27 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     public GameObject PlayerPrefab;
-    public int remainCount;
-    private TextMeshPro remainCountText;
-
-    private void Awake()
-    {
-        remainCountText = GetComponentInChildren<TextMeshPro>();
-        UpdateText();
-    }
 
     private void OnMouseDown()
     {
+        int playerLayer = LayerMask.GetMask("Player");
+        int ObstacleLayer = LayerMask.GetMask("Obstacle");
+
+        Collider2D hit = Physics2D.OverlapBox(transform.position, transform.localScale, 0f, playerLayer + ObstacleLayer);
+        if (hit != null && hit.CompareTag("Player"))
+        {
+            Debug.Log("플레이어가 충돌 중이므로 클릭 무시");
+            return;
+        }
         Spawn();
     }
 
     public void Spawn()
     {
-        if (remainCount <= 0) return;
-
-        remainCount--;
-        Instantiate(PlayerPrefab, transform.position, Quaternion.identity);
-        UpdateText();
-
-        if (remainCount == 0)
+        if (gameObject.scene.isLoaded)
         {
+            Instantiate(PlayerPrefab, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
-    }
-
-    public void UpdateText()
-    {
-        remainCountText.text = remainCount.ToString();
     }
 }
