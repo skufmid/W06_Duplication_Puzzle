@@ -67,10 +67,12 @@ public class GameManager : MonoBehaviour
     public bool IsPaused { get { return isPaused; } }
 
 
+    // 보너스 스테이지용 필드
     bool isAllMainStagesCleared = false;
     public bool IsAllMainStagesCleared => isAllMainStagesCleared;
 
     [SerializeField] GameObject congratulationCanvas;
+
 
 
     private void Awake()
@@ -147,20 +149,22 @@ public class GameManager : MonoBehaviour
             int previousClearStages = clearStages[curWorld];
             clearStages[curWorld] = Mathf.Max(clearStages[curWorld], curScene);
             Debug.Log($"clearStages[{curWorld}] 업데이트: {previousClearStages} -> {clearStages[curWorld]}");
-            SaveGame();
+
+            // World 1~3 모든 스테이지 클리어 확인
+            bool wasAllCleared = isAllMainStagesCleared;
+            isAllMainStagesCleared = AreAllMainStagesCleared();
+            if (!wasAllCleared && isAllMainStagesCleared)
+            {
+                Debug.Log("모든 메인 스테이지 클리어 상태로 전환!");
+            }
+
+            SaveGame(); // 상태 변경 후 즉시 저장
 
             // World 4 클리어 시 축하 캔버스 표시
             if (curWorld == 4 && curScene == 1)
             {
                 ShowCongratulationCanvas();
                 return;
-            }
-
-            // World 1~3 모든 스테이지 클리어 확인
-            if (!isAllMainStagesCleared && AreAllMainStagesCleared())
-            {
-                isAllMainStagesCleared = true;
-                SaveGame();
             }
 
             SceneController.Instance.ChangeScene($"Stage{curWorld}SelectScene");
@@ -204,7 +208,7 @@ public class GameManager : MonoBehaviour
 
     private void SaveGame()
     {
-        savedData = string.Join(",", clearStages) + "|" + isAllMainStagesCleared;
+        savedData = string.Join(",", clearStages) + "|" + isAllMainStagesCleared.ToString();
         GameSave.SetEncryptedString("save", savedData);
     }
 
@@ -216,30 +220,54 @@ public class GameManager : MonoBehaviour
             try
             {
                 string[] parts = savedData.Split('|');
+                if (parts.Length < 1)
+                {
+                    throw new Exception("savedData 형식이 잘못됨: 구분자 '|' 누락");
+                }
+
                 clearStages = Array.ConvertAll(parts[0].Split(','), int.Parse);
                 if (clearStages.Length != Worlds.Count)
                 {
                     Debug.LogWarning($"clearStages 길이 불일치: 예상 {Worlds.Count}, 실제 {clearStages.Length}. 초기화합니다.");
-                    clearStages = new int[] { 0, 0, 0, 0, 0 }; // World 4 포함
+                    clearStages = new int[Worlds.Count]; // 기본값 0으로 초기화
                 }
-                if (parts.Length > 1)
+
+                // isAllMainStagesCleared 로드
+                if (parts.Length > 1 && !string.IsNullOrEmpty(parts[1]))
                 {
                     isAllMainStagesCleared = bool.Parse(parts[1]);
+                }
+                else
+                {
+                    isAllMainStagesCleared = AreAllMainStagesCleared(); // 저장된 값 없으면 계산
+                    Debug.Log($"isAllMainStagesCleared 값 없음. 계산 결과: {isAllMainStagesCleared}");
                 }
             }
             catch (Exception e)
             {
                 Debug.LogError($"저장 데이터 파싱 실패: {e.Message}. 초기화합니다.");
-                clearStages = new int[] { 0, 0, 0, 0, 0 };
+                clearStages = new int[Worlds.Count]; // Worlds와 길이 맞춤
                 isAllMainStagesCleared = false;
             }
         }
         else
         {
-            clearStages = new int[] { 0, 0, 0, 0, 0 };
+            clearStages = new int[Worlds.Count]; // Worlds와 길이 맞춤
             isAllMainStagesCleared = false;
-            Debug.Log($"저장 데이터가 없어 초기화됨: World 1의 Stage 1만 활성화 상태 (clearStages: {string.Join(",", clearStages)})");
-            SaveGame();
+            Debug.Log($"저장 데이터 없음. 초기화: clearStages = [{string.Join(",", clearStages)}], isAllMainStagesCleared = {isAllMainStagesCleared}");
+        }
+
+        // 로드 후 올클리어 상태 검증
+        bool calculatedAllCleared = AreAllMainStagesCleared();
+        if (isAllMainStagesCleared != calculatedAllCleared)
+        {
+            Debug.LogWarning($"isAllMainStagesCleared 불일치: 저장된 값 = {isAllMainStagesCleared}, 계산된 값 = {calculatedAllCleared}. 계산된 값으로 갱신");
+            isAllMainStagesCleared = calculatedAllCleared;
+            SaveGame(); // 불일치 시 저장
+        }
+        else
+        {
+            Debug.Log($"LoadGame: clearStages = [{string.Join(",", clearStages)}], isAllMainStagesCleared = {isAllMainStagesCleared}");
         }
     }
 
@@ -292,6 +320,15 @@ public class GameManager : MonoBehaviour
         bool isUnlocked = clearStages[worldNumber] >= (stageIndex - 1);
         Debug.Log($"World {worldNumber} - Stage {stageIndex} 잠금 해제 여부: {isUnlocked} (clearStages[{worldNumber}] = {clearStages[worldNumber]})");
         return isUnlocked;
+    }
+
+    
+    // 스테이지 클리어 여부 검사
+    public bool IsStageCleared(int worldNumber, int stageIndex)
+    {
+        bool isCleared = clearStages[worldNumber] >= stageIndex;
+        Debug.Log($"World {worldNumber} - Stage {stageIndex} 클리어 여부: {isCleared} (clearStages[{worldNumber}] = {clearStages[worldNumber]})");
+        return isCleared;
     }
 }
 

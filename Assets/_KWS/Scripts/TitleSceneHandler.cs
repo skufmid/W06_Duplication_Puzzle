@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 
@@ -26,7 +27,13 @@ public class TitleSceneHandler : MonoBehaviour
         if (Input.anyKeyDown || Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
         {
             isTransitioning = true;
-            SceneController.Instance.ChangeScene(nextScene);
+            StartCoroutine(ChangeSceneWithDelay());
         }
+    }
+
+    private IEnumerator ChangeSceneWithDelay()
+    {
+        yield return new WaitForSeconds(0.2f); // 0.1ÃÊ Áö¿¬
+        SceneController.Instance.ChangeScene(nextScene);
     }
 }

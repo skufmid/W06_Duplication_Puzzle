@@ -14,6 +14,13 @@ public class StageSelectSceneHandler : MonoBehaviour
 
     bool isTransitioning = false;
 
+
+    // 버튼 색상 상수
+    Color activeColor = new Color32(255, 120, 120, 255);
+    Color clearedColor = Color.white;
+    Color disabledColor = new Color32(200, 200, 200, 255);
+
+
     void Start()
     {
         // 월드 번호 유효성 체크
@@ -83,7 +90,7 @@ public class StageSelectSceneHandler : MonoBehaviour
             else if (button.name == "NextWorldButton")
             {
                 // worldNumber가 최대 월드 미만이고, 다음 월드가 해금되었을 때만 활성화
-                int maxWorlds = GameManager.Instance.Worlds.Count - 1; // Worlds 리스트의 길이 (0번 제외)
+                int maxWorlds = GameManager.Instance.Worlds.Count - 2; // Worlds 리스트의 길이 (0번 제외)
                 bool isNextWorldUnlocked = worldNumber < maxWorlds && GameManager.Instance.IsWorldUnlocked(worldNumber + 1);
                 button.interactable = isNextWorldUnlocked;
                 Debug.Log($"NextWorldButton 활성화 여부: {isNextWorldUnlocked} (worldNumber = {worldNumber}, maxWorlds = {maxWorlds}, IsWorldUnlocked({worldNumber + 1}) = {isNextWorldUnlocked})");
@@ -144,32 +151,51 @@ public class StageSelectSceneHandler : MonoBehaviour
         // 버튼과 씬 이름 매핑
         for (int i = 0; i < buttons.Length; i++)
         {
-            // stageSceneNames가 더 짧아서 해당 인덱스가 없거나, 씬 이름이 비어 있는 경우
+            // stageSceneNames가 더 짧거나 씬 이름이 비어 있는 경우
             if (i >= stageSceneNames.Length || string.IsNullOrEmpty(stageSceneNames[i]))
             {
                 Debug.LogWarning($"StageButton{i + 1}에 대응하는 씬 이름이 비어 있습니다!");
                 buttons[i].interactable = false;
+                buttons[i].GetComponent<Image>().color = disabledColor;
                 continue;
             }
 
-            // World 4의 경우 첫 번째 스테이지만 활성화
+            // World 4의 경우 첫 번째 스테이지만 처리
             if (worldNumber == 4 && i > 0)
             {
                 buttons[i].interactable = false;
+                buttons[i].GetComponent<Image>().color = disabledColor;
                 continue;
             }
 
-            // 스테이지 잠금 여부 확인 (i + 1은 스테이지 번호: 1부터 시작)
+            // 스테이지 잠금 및 클리어 여부 확인
             bool isStageUnlocked = GameManager.Instance.IsStageUnlocked(worldNumber, i + 1);
-            buttons[i].interactable = isStageUnlocked;
-            Debug.Log($"World {worldNumber} - Stage {i + 1} 버튼 활성화 상태: {isStageUnlocked}");
+            bool isStageCleared = GameManager.Instance.IsStageCleared(worldNumber, i + 1);
 
+            // 버튼 상태 및 색상 설정
+            buttons[i].interactable = isStageUnlocked;
+            if (!isStageUnlocked)
+            {
+                buttons[i].GetComponent<Image>().color = disabledColor;
+            }
+            else if (isStageCleared)
+            {
+                buttons[i].GetComponent<Image>().color = clearedColor; // #FFFFFF
+            }
+            else
+            {
+                buttons[i].GetComponent<Image>().color = activeColor; // #FF7878
+            }
+
+            // 버튼 클릭 이벤트 설정
             if (isStageUnlocked)
             {
                 string sceneName = stageSceneNames[i];
                 buttons[i].onClick.RemoveAllListeners();
                 buttons[i].onClick.AddListener(() => GoToStage(sceneName));
             }
+
+            Debug.Log($"World {worldNumber} - Stage {i + 1}: Unlocked={isStageUnlocked}, Cleared={isStageCleared}, Color={buttons[i].GetComponent<Image>().color}");
         }
     }
 

@@ -44,8 +44,17 @@ public class PauseMenuHandler : MonoBehaviour
     {
         Time.timeScale = 1f; // 시간 재설정
         int worldNumber = GameManager.Instance.CurWorld;
-        string sceneName = $"Stage{worldNumber}SelectScene";
-        GameManager.Instance.TogglePause(); // Pause 상태 토글
+        string sceneName;
+        if (worldNumber < 4)
+        {
+            sceneName = $"Stage{worldNumber}SelectScene";
+        }
+        else
+        {
+            sceneName = "WorldSelectScene";
+        }
+
+            GameManager.Instance.TogglePause(); // Pause 상태 토글
         SceneManager.LoadScene(sceneName);
         // 또는 게임 종료:
         // Application.Quit();
